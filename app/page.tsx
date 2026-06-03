@@ -10,7 +10,13 @@ export default function DigitsPage() {
   const { ws, isConnected, isExhausted, auth } = useDerivWSContext();
   const { authState, accounts, activeAccount, login, signUp, logout, switchAccount } = auth;
 
-  const trading = useDigitsTrading({ ws, isConnected, isExhausted, isAuthenticated: !!auth.wsUrl, onAuthWSFailed: logout });
+  const trading = useDigitsTrading({
+    ws,
+    isConnected,
+    isExhausted,
+    isAuthenticated: authState === 'authenticated',
+    onAuthWSFailed: logout,
+  });
 
   return (
     <DigitsView
